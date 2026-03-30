@@ -8,3 +8,10 @@ body {
 .container {
     max-width: 48rem;
 }
+
+p {
+    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-weight: 400;
+    typography-spacing-vertical: 0.5rem;
+    word-break: break-word;
+}

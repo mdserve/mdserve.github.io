@@ -8,7 +8,8 @@ export default function App() {
         const loadMarkdown = async () => {
             const res = await fetch(
                 'https://raw.githubusercontent.com/robvanderleek/mdrender/refs/heads/main/README.md');
-            setContent(await res.text());
+            const text = await res.text();
+            setContent(text);
         }
         loadMarkdown();
     });
