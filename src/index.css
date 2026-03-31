@@ -1,3 +1,9 @@
+:root {
+    --pico-font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+    --pico-font-weight: 400;
+    --pico-typography-spacing-vertical: 0.5rem;
+}
+
 html {
 }
 
@@ -7,11 +13,19 @@ body {
 
 .container {
     max-width: 48rem;
+    padding: 2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    --pico-font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --pico-font-weight: 700;
 }
 
 p {
-    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
-    font-weight: 400;
-    typography-spacing-vertical: 0.5rem;
     word-break: break-word;
 }
