@@ -11,8 +11,8 @@ export default function Render() {
             let user = params.user;
             let repo = params.repo;
             if (user === undefined || repo === undefined) {
-                user = 'robvanderleek';
-                repo = 'mdrender';
+                user = 'mdserve';
+                repo = 'mdserve.github.io';
             }
             const res = await fetch(
                 `https://raw.githubusercontent.com/${user}/${repo}/refs/heads/main/README.md`);
