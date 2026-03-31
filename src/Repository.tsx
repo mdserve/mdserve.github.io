@@ -1,8 +1,7 @@
-import Markdown from "react-markdown";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {isAbsoluteUrl} from "./utils";
-import rehypeRaw from "rehype-raw";
+import Render from "./Render";
 
 export default function Repository() {
     const [content, setContent] = useState<string>('');
@@ -28,14 +27,12 @@ export default function Repository() {
         }
     }
 
-    return (
-        <main className="container">
-            <Markdown rehypePlugins={[rehypeRaw]} urlTransform={url => {
-                if (!isAbsoluteUrl(url)) {
-                    return `https://raw.githubusercontent.com/${getSlug()}/refs/heads/main/${url}`;
-                }
-                return url;
-            }}>{content}</Markdown>
-        </main>
-    );
+    const urlTransform = (url: string) => {
+        if (!isAbsoluteUrl(url)) {
+            return `https://raw.githubusercontent.com/${getSlug()}/refs/heads/main/${url}`;
+        }
+        return url;
+    }
+
+    return (<Render content={content} urlTransform={urlTransform}/>);
 }
