@@ -24,7 +24,13 @@ export default function Render() {
 
     return (
         <main className="container">
-            <Markdown>{content}</Markdown>
+            <Markdown urlTransform={url => {
+                console.log(url);
+                if (url.startsWith("src")) {
+                    return `https://raw.githubusercontent.com/robvanderleek/pwa-nes/refs/heads/main/${url}`;
+                }
+                return url;
+            }}>{content}</Markdown>
         </main>
     );
 }
