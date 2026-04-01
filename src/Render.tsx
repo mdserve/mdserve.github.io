@@ -1,5 +1,6 @@
 import Markdown, {UrlTransform} from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import rehypeHighlight from "rehype-highlight";
 
 interface RenderProps {
     content: string;
@@ -8,6 +9,7 @@ interface RenderProps {
 
 export default function Render(props: RenderProps) {
     return (
-        <Markdown rehypePlugins={[rehypeRaw]} urlTransform={props.urlTransform}>{props.content}</Markdown>
+        <Markdown rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                  urlTransform={props.urlTransform}>{props.content}</Markdown>
     )
 }

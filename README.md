@@ -8,7 +8,7 @@
 
 <div align="center">
 
-  *Render Markdown files in Git repositories 🛎️*
+  *Render Markdown files in Git repositories* 🛎️
 
 </div>
 
