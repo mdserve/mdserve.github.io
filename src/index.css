@@ -42,6 +42,10 @@ pre code {
     font-size: 0.8em;
 }
 
+code {
+    font-size: 0.8em;
+}
+
 .footer {
     display: flex;
     justify-content: center;
