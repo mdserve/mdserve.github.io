@@ -3,6 +3,7 @@ import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import type {PluggableList} from "unified";
 
 interface RenderProps {
     content: string;
@@ -10,8 +11,10 @@ interface RenderProps {
 }
 
 export default function Render(props: RenderProps) {
+    const remarkPlugins = [remarkGfm];
+    const rehypePlugins = [rehypeRaw, rehypeSlug, [rehypeHighlight, {detect: true}]] as PluggableList;
     return (
-        <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeSlug, rehypeHighlight]}
+        <Markdown remarkPlugins={remarkPlugins} rehypePlugins={rehypePlugins}
                   urlTransform={props.urlTransform}>{props.content}</Markdown>
     )
 }

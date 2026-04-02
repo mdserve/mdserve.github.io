@@ -28,3 +28,7 @@ Would not have been possible without these Libraries:
 
 - [Pico CSS](https://picocss.com/)
 - [react-markdown](https://github.com/remarkjs/react-markdown)
+    * [remark-gfm](https://github.com/remarkjs/remark-gfm)
+    * [rehype-highlight](https://github.com/rehypejs/rehype-highlight)
+    * [rehype-raw](https://github.com/rehypejs/rehype-raw)
+    * [rehype-slug](https://github.com/rehypejs/rehype-slug)

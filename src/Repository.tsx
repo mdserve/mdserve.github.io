@@ -14,8 +14,11 @@ export default function Repository() {
 
     useEffect(() => {
         const loadMarkdown = async () => {
-            const url = `https://raw.githubusercontent.com/${getSlug()}/refs/heads/main/README.md`;
-            const res = await fetch(url);
+            const baseUrl = `https://raw.githubusercontent.com/${getSlug()}/refs/heads/main/`;
+            let res = await fetch(`${baseUrl}/README.md`);
+            if (res.status === 404) {
+               res = await fetch(`${baseUrl}/readme.md`);
+            }
             const text = await res.text();
             setContent(text);
             setLoading(false);
