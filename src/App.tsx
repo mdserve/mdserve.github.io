@@ -3,8 +3,6 @@ import {Route, Routes} from "react-router";
 import Gist from "./Gist";
 
 export default function App() {
-
-
     return (
         <main className="container">
             <Routes>

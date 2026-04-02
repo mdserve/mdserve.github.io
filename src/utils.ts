@@ -1,11 +1,12 @@
 export function urlTransformer(slug: string): (url: string) => string {
     return function (url: string): string {
         let result;
-        if (isAbsoluteUrl(url)) {
-            if (url.startsWith('#')) {
-                result = url;
-            }
+        if (url.startsWith('#')) {
+            result = url;
+        } else if (isAbsoluteUrl(url)) {
             result = url.replace(`github.com/${slug}/blob/`, `raw.githubusercontent.com/${slug}/refs/heads/`);
+        } else if (url.startsWith('@gist/')) {
+            result = url.replace('@', 'https://mdserve.github.io/');
         } else {
             result = `https://raw.githubusercontent.com/${slug}/refs/heads/main/${url}`;
         }
