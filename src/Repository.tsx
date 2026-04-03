@@ -1,12 +1,13 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
-import {urlTransformer} from "./utils";
+import {getDefaultBranch, urlTransformer} from "./utils";
 import Render from "./Render";
 import Footer from "./Footer";
 import LoadingScreen from "./LoadingScreen";
 
 export default function Repository() {
     const [loading, setLoading] = useState(true);
+    const [branch, setBranch] = useState("");
     const [content, setContent] = useState<string>('');
     const params = useParams();
     const user = params.user;
@@ -14,12 +15,15 @@ export default function Repository() {
 
     useEffect(() => {
         const loadMarkdown = async () => {
-            const baseUrl = `https://raw.githubusercontent.com/${getSlug()}/refs/heads/main/`;
+            const slug = getSlug();
+            const defaultBranch = await getDefaultBranch(slug);
+            const baseUrl = `https://raw.githubusercontent.com/${slug}/refs/heads/${defaultBranch}/`;
             let res = await fetch(`${baseUrl}/README.md`);
             if (res.status === 404) {
-               res = await fetch(`${baseUrl}/readme.md`);
+                res = await fetch(`${baseUrl}/readme.md`);
             }
             const text = await res.text();
+            setBranch(defaultBranch);
             setContent(text);
             setLoading(false);
         }
@@ -41,7 +45,7 @@ export default function Repository() {
     } else {
         return (
             <>
-                <Render content={content} urlTransform={urlTransformer(getSlug())}/>
+                <Render content={content} urlTransform={urlTransformer(getSlug(), branch)}/>
                 <Footer user={user} source={`https://github.com/${getSlug()}`}/>
             </>
         );
