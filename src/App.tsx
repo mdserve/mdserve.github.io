@@ -7,7 +7,7 @@ export default function App() {
         <main className="container">
             <Routes>
                 <Route path='gist/:user/:id' element={<Gist/>}/>
-                <Route path='/:user?/:repo?' element={<Repository/>}/>
+                <Route path='/:user?/:repo?/*' element={<Repository/>}/>
             </Routes>
         </main>
     );

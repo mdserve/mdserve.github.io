@@ -10,17 +10,21 @@ export default function Repository() {
     const [branch, setBranch] = useState("");
     const [content, setContent] = useState<string>('');
     const params = useParams();
-    const user = params.user;
-    const repo = params.repo;
+    const {user, repo, '*': path} = params;
 
     useEffect(() => {
         const loadMarkdown = async () => {
             const slug = getSlug();
             const defaultBranch = await getDefaultBranch(slug);
             const baseUrl = `https://raw.githubusercontent.com/${slug}/refs/heads/${defaultBranch}/`;
-            let res = await fetch(`${baseUrl}/README.md`);
-            if (res.status === 404) {
-                res = await fetch(`${baseUrl}/readme.md`);
+            let res;
+            if (path) {
+                res = await fetch(`${baseUrl}/${path}`);
+                if (res.status === 404) {
+                    res = await fetchReadme(`${baseUrl}/${path}`);
+                }
+            } else {
+                res = await fetchReadme(baseUrl);
             }
             const text = await res.text();
             setBranch(defaultBranch);
@@ -29,6 +33,14 @@ export default function Repository() {
         }
         loadMarkdown();
     }, []);
+
+    const fetchReadme = async (url: string): Promise<Response> => {
+        let res = await fetch(`${url}/README.md`);
+        if (res.status === 404) {
+            res = await fetch(`${url}/readme.md`);
+        }
+        return res;
+    }
 
     const getSlug = (): string => {
         if (user === undefined) {
