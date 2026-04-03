@@ -2,7 +2,13 @@
     --pico-font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
     --pico-font-weight: 400;
     --pico-typography-spacing-vertical: 0.5rem;
-    --pico-font-size: 150%;
+    --pico-font-size: 125%;
+}
+
+@media (min-width: 576px) {
+    :root {
+        --pico-font-size: 150%;
+    }
 }
 
 html {
@@ -14,7 +20,7 @@ body {
 
 .container {
     max-width: 40rem;
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 h1,
