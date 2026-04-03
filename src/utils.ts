@@ -6,8 +6,11 @@ export function urlTransformer(slug: string, branch: string): (url: string) => s
         } else if (isAbsoluteUrl(url)) {
             result = url.replace(`github.com/${slug}/blob/`, `raw.githubusercontent.com/${slug}/refs/heads/`);
         } else if (url.startsWith('@gist/')) {
-            result = url.replace('@', 'https://mdserve.github.io/');
-        } else {
+            result = url.replace('@', '/');
+        } else if (url.toLowerCase().endsWith('.md')) {
+            result = `/${slug}/${url}`;
+        }
+        else {
             result = `https://raw.githubusercontent.com/${slug}/refs/heads/${branch}/${url}`;
         }
         return result;
