@@ -22,6 +22,14 @@ test('URL transformer, relative Markdown links', () => {
     expect(urlTransformer('robvanderleek/notes', 'main')(url)).toBe(absoluteUrl);
 });
 
+test('URL transformer, relative content links', () => {
+    const url = 'screenshot.png';
+    const path = 'notes/1';
+    const absoluteUrl = `https://raw.githubusercontent.com/robvanderleek/notes/refs/heads/main/notes/1/screenshot.png`;
+
+    expect(urlTransformer('robvanderleek/notes', 'main', path)(url)).toBe(absoluteUrl);
+});
+
 test('URL transformer, anchor links', () => {
     expect(urlTransformer('', '')('#welcome')).toBe('#welcome');
 });

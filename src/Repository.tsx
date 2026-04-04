@@ -8,6 +8,7 @@ import LoadingScreen from "./LoadingScreen";
 export default function Repository() {
     const [loading, setLoading] = useState(true);
     const [branch, setBranch] = useState("");
+    const [folder, setFolder] = useState("");
     const [content, setContent] = useState<string>('');
     const params = useParams();
     const {user, repo, '*': path} = params;
@@ -20,8 +21,10 @@ export default function Repository() {
             let res;
             if (path) {
                 res = await fetch(`${baseUrl}/${path}`);
+                setFolder(path.substring(0, path.lastIndexOf('/')));
                 if (res.status === 404) {
                     res = await fetchReadme(`${baseUrl}/${path}`);
+                    setFolder(path);
                 }
             } else {
                 res = await fetchReadme(baseUrl);
@@ -57,7 +60,7 @@ export default function Repository() {
     } else {
         return (
             <>
-                <Render content={content} urlTransform={urlTransformer(getSlug(), branch)}/>
+                <Render content={content} urlTransform={urlTransformer(getSlug(), branch, folder)}/>
                 <Footer user={user} source={`https://github.com/${getSlug()}`}/>
             </>
         );

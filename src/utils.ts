@@ -1,4 +1,4 @@
-export function urlTransformer(slug: string, branch: string): (url: string) => string {
+export function urlTransformer(slug: string, branch: string, folder?: string): (url: string) => string {
     return function (url: string): string {
         let result;
         if (url.startsWith('#')) {
@@ -9,9 +9,12 @@ export function urlTransformer(slug: string, branch: string): (url: string) => s
             result = url.replace('@', '/');
         } else if (url.toLowerCase().endsWith('.md')) {
             result = `/${slug}/${url}`;
-        }
-        else {
-            result = `https://raw.githubusercontent.com/${slug}/refs/heads/${branch}/${url}`;
+        } else {
+            if (folder) {
+                result = `https://raw.githubusercontent.com/${slug}/refs/heads/${branch}/${folder}/${url}`;
+            } else {
+                result = `https://raw.githubusercontent.com/${slug}/refs/heads/${branch}/${url}`;
+            }
         }
         return result;
     }
